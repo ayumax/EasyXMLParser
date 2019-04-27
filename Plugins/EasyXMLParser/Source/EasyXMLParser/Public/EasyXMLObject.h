@@ -17,19 +17,19 @@ public:
 	static UEasyXMLObject* CreateEasyXMLObject(const FString& ContentString);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	int32 ReadInt(const FString& AccessString);
+	int32 ReadInt(const FString& AccessString = TEXT(""));
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	float ReadFloat(const FString& AccessString);
+	float ReadFloat(const FString& AccessString = TEXT(""));
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	FString ReadString(const FString& AccessString);
+	FString ReadString(const FString& AccessString = TEXT(""));
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	bool ReadBool(const FString& AccessString);
+	bool ReadBool(const FString& AccessString = TEXT(""));
 
 	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser|Object")
-	UEasyXMLObject* ReadXMLObject(const FString& AccessString);
+	UEasyXMLObject* ReadXMLObject(const FString& AccessString = TEXT(""));
 
 public:
 	UPROPERTY(Transient, BlueprintReadOnly, Category = "EasyXMLParser|Object")

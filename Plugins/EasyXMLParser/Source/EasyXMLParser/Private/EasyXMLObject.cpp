@@ -18,8 +18,6 @@ FString UEasyXMLObject::GetXMLNodeContent(const FString& AccessString)
 	TArray<FString> Accessers;
 	AccessString.ParseIntoArray(Accessers, TEXT("."), true);
 
-	if (Accessers.Num() == 0) return TEXT("");
-
 	auto parentNode = xmlFile.GetRootNode();
 
 	for (auto accesseName : Accessers)
@@ -42,7 +40,7 @@ FString UEasyXMLObject::GetXMLNodeContent(const FString& AccessString)
 int32 UEasyXMLObject::ReadInt(const FString& AccessString)
 {
 	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (!targetNodeContent.IsEmpty()) return 0;
+	if (targetNodeContent.IsEmpty()) return 0;
 
 	return FCString::Atoi(*targetNodeContent);
 }
@@ -50,7 +48,7 @@ int32 UEasyXMLObject::ReadInt(const FString& AccessString)
 float UEasyXMLObject::ReadFloat(const FString& AccessString)
 {
 	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (!targetNodeContent.IsEmpty()) return 0;
+	if (targetNodeContent.IsEmpty()) return 0;
 
 	return FCString::Atof(*targetNodeContent);
 }
@@ -63,7 +61,7 @@ FString UEasyXMLObject::ReadString(const FString& AccessString)
 bool UEasyXMLObject::ReadBool(const FString& AccessString)
 {
 	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (!targetNodeContent.IsEmpty()) return false;
+	if (targetNodeContent.IsEmpty()) return false;
 
 	return targetNodeContent.ToLower() == TEXT("true") ? true : false;
 }
@@ -71,7 +69,7 @@ bool UEasyXMLObject::ReadBool(const FString& AccessString)
 UEasyXMLObject* UEasyXMLObject::ReadXMLObject(const FString& AccessString)
 {
 	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (!targetNodeContent.IsEmpty()) return nullptr;
+	if (targetNodeContent.IsEmpty()) return nullptr;
 
 	return CreateEasyXMLObject(targetNodeContent);
 }
