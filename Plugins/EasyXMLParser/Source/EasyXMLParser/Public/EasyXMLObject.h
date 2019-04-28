@@ -5,7 +5,6 @@
 #include "UObject/NoExportTypes.h"
 #include "EasyXMLObject.generated.h"
 
-class FXmlNode;
 
 UCLASS(BlueprintType, Blueprintable)
 class EASYXMLPARSER_API UEasyXMLObject : public UObject
@@ -14,27 +13,25 @@ class EASYXMLPARSER_API UEasyXMLObject : public UObject
 	
 public:
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	static UEasyXMLObject* CreateEasyXMLObject(const FString& ContentString);
+	int32 ReadIntValue(bool& isSuccess);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	int32 ReadInt(const FString& AccessString = TEXT(""));
+	float ReadFloatValue(bool& isSuccess);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	float ReadFloat(const FString& AccessString = TEXT(""));
+	FString ReadStringValue(bool& isSuccess);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	FString ReadString(const FString& AccessString = TEXT(""));
-
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	bool ReadBool(const FString& AccessString = TEXT(""));
-
-	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser|Object")
-	UEasyXMLObject* ReadXMLObject(const FString& AccessString = TEXT(""));
+	bool ReadBoolValue(bool& isSuccess);
 
 public:
-	UPROPERTY(Transient, BlueprintReadOnly, Category = "EasyXMLParser|Object")
-	FString Content = TEXT("");
+	UPROPERTY(BlueprintReadOnly, Category = "EasyXMLParser|Object")
+	FString Name = TEXT("");
 
-private:
-	FString GetXMLNodeContent(const FString& AccessString);
+	UPROPERTY(BlueprintReadOnly, Category = "EasyXMLParser|Object")
+	FString Value = TEXT("");
+	
+	UPROPERTY(BlueprintReadOnly, Category = "EasyXMLParser|Object")
+	UEasyXMLObject* Parent = nullptr;
+
 };

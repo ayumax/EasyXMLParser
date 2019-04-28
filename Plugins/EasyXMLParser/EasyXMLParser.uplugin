@@ -1,23 +1,23 @@
 {
-	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0",
-	"FriendlyName": "EasyXMLParser",
-	"Description": "",
-	"Category": "Other",
-	"CreatedBy": "ayumax",
-	"CreatedByURL": "",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"SupportURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": false,
-	"Installed": false,
-	"Modules": [
-		{
-			"Name": "EasyXMLParser",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	]
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0.0",
+  "FriendlyName": "EasyXMLParser",
+  "Description": "Parse xml easily",
+  "Category": "Programming",
+  "CreatedBy": "ayumax",
+  "CreatedByURL": "https://github.com/ayumax",
+  "DocsURL": "https://github.com/ayumax/EasyXMLParser",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "Installed": true,
+  "Modules": [
+    {
+      "Name": "EasyXMLParser",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
 }

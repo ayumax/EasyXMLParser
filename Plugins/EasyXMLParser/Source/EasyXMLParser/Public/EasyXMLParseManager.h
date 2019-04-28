@@ -3,7 +3,8 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "EasyXMLObject.h"
+#include "EasyXMLElement.h"
+#include "EasyXMLParserEnums.h"
 #include "EasyXMLParseManager.generated.h"
 
 /**
@@ -21,15 +22,15 @@ public:
 	 * @param IsAblolute - true:FilePath is absolute path, false:Relative path from "Content"
 	 * @return xml object
 	 */
-	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser")
-	static UEasyXMLObject* LoadFromFile(const FString& FilePath, bool IsAblolute = false);
+	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser", meta = (ExpandEnumAsExecs = "Result"))
+	static UEasyXMLElement* LoadFromFile(const FString& FilePath, bool IsAblolute, EEasyXMLParserErrorCode& Result, FString& ErrorMessage);
 
 	/**
 	 * load xml string
 	 * @param XMLString - xml file path
 	 * @return xml object
 	 */
-	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser")
-	static UEasyXMLObject* LoadFromString(const FString& XMLString);
+	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser", meta = (ExpandEnumAsExecs = "Result"))
+	static UEasyXMLElement* LoadFromString(const FString& XMLString, EEasyXMLParserErrorCode& Result, FString& ErrorMessage);
 
 };

@@ -1,75 +1,54 @@
 // Copyright 2019 ayumax. All Rights Reserved.
 
 #include "EasyXMLObject.h"
-#include "XmlParser.h"
+#include "Utils/CustomXMLParser.h"
 
-UEasyXMLObject* UEasyXMLObject::CreateEasyXMLObject(const FString& ContentString)
+int32 UEasyXMLObject::ReadIntValue(bool& isSuccess)
 {
-	auto xmlObject = NewObject<UEasyXMLObject>();
-	xmlObject->Content = ContentString;
-	return xmlObject;
+	isSuccess = false;
+
+	if (Value.IsEmpty()) return 0;
+
+	int32 _index = 0;
+
+	if (Value.IsNumeric() && !Value.FindChar(TEXT('.'), _index))
+	{
+		isSuccess = true;
+		return FCString::Atoi(*Value);
+	}
+		
+	return 0;
 }
 
-FString UEasyXMLObject::GetXMLNodeContent(const FString& AccessString)
+float UEasyXMLObject::ReadFloatValue(bool& isSuccess)
 {
-	FXmlFile xmlFile(Content, EConstructMethod::ConstructFromBuffer);
-	if (!xmlFile.IsValid()) return TEXT("");
+	isSuccess = false;
+	if (Value.IsEmpty()) return 0;
 
-	TArray<FString> Accessers;
-	AccessString.ParseIntoArray(Accessers, TEXT("."), true);
+	isSuccess = Value.IsNumeric();
+	return isSuccess ? FCString::Atof(*Value) : 0;
+}
 
-	auto parentNode = xmlFile.GetRootNode();
+FString UEasyXMLObject::ReadStringValue(bool& isSuccess)
+{
+	return Value;
+}
 
-	for (auto accesseName : Accessers)
+bool UEasyXMLObject::ReadBoolValue(bool& isSuccess)
+{
+	isSuccess = false;
+	if (Value.IsEmpty()) return false;
+
+	if (Value.Equals(TEXT("true"), ESearchCase::IgnoreCase))
 	{
-		if (accesseName[0] == TEXT('@'))
-		{
-			return parentNode->GetAttribute(accesseName.Mid(1));
-		}
-		else
-		{
-			parentNode = parentNode->FindChildNode(accesseName);
-
-			if (!parentNode) return TEXT("");
-		}
+		isSuccess = true;
+		return true;
+	}
+	else if (Value.Equals(TEXT("false"), ESearchCase::IgnoreCase))
+	{
+		isSuccess = true;
+		return false;
 	}
 
-	return parentNode ? parentNode->GetContent() : TEXT("");
-}
-
-int32 UEasyXMLObject::ReadInt(const FString& AccessString)
-{
-	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (targetNodeContent.IsEmpty()) return 0;
-
-	return FCString::Atoi(*targetNodeContent);
-}
-
-float UEasyXMLObject::ReadFloat(const FString& AccessString)
-{
-	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (targetNodeContent.IsEmpty()) return 0;
-
-	return FCString::Atof(*targetNodeContent);
-}
-
-FString UEasyXMLObject::ReadString(const FString& AccessString)
-{
-	return GetXMLNodeContent(AccessString);
-}
-
-bool UEasyXMLObject::ReadBool(const FString& AccessString)
-{
-	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (targetNodeContent.IsEmpty()) return false;
-
-	return targetNodeContent.ToLower() == TEXT("true") ? true : false;
-}
-
-UEasyXMLObject* UEasyXMLObject::ReadXMLObject(const FString& AccessString)
-{
-	auto targetNodeContent = GetXMLNodeContent(AccessString);
-	if (targetNodeContent.IsEmpty()) return nullptr;
-
-	return CreateEasyXMLObject(targetNodeContent);
+	return false;
 }

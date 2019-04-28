@@ -3,21 +3,28 @@
 #include "EasyXMLParseManager.h"
 #include "Misc/Paths.h"
 #include "Misc/FileHelper.h"
-#include "EasyXMLObject.h"
+#include "EasyXMLElement.h"
+#include "Utils/CustomXMLParser.h"
 
 
-
-UEasyXMLObject* UEasyXMLParseManager::LoadFromString(const FString& XMLString)
+UEasyXMLElement* UEasyXMLParseManager::LoadFromString(const FString& XMLString, EEasyXMLParserErrorCode& Result, FString& ErrorMessage)
 {
-	return UEasyXMLObject::CreateEasyXMLObject(XMLString);
+	CustomXMLParser parser;
+	FString _errorMessage;
+
+	auto rootElement = parser.Parse(XMLString, _errorMessage);
+	Result = rootElement != nullptr ? EEasyXMLParserErrorCode::Successed : EEasyXMLParserErrorCode::Failed;
+	ErrorMessage = _errorMessage;
+
+	return rootElement;
 }
 
-UEasyXMLObject* UEasyXMLParseManager::LoadFromFile(const FString& FilePath, bool IsAblolute)
+UEasyXMLElement* UEasyXMLParseManager::LoadFromFile(const FString& FilePath, bool IsAblolute, EEasyXMLParserErrorCode& Result, FString& ErrorMessage)
 {
 	auto readPath = FilePath;
 	if (!IsAblolute)
 	{
-		readPath = FPaths::Combine(FPaths::ProjectLogDir(), FilePath);
+		readPath = FPaths::Combine(FPaths::ProjectContentDir(), FilePath);
 	}
 
 	if (!FPaths::FileExists(readPath)) return nullptr;
@@ -26,5 +33,5 @@ UEasyXMLObject* UEasyXMLParseManager::LoadFromFile(const FString& FilePath, bool
 
 	FFileHelper::LoadFileToString(xmlString, *readPath);
 
-	return LoadFromString(xmlString);
+	return LoadFromString(xmlString, Result, ErrorMessage);
 }
