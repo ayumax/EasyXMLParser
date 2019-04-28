@@ -12,17 +12,17 @@ class EASYXMLPARSER_API UEasyXMLObject : public UObject
 	GENERATED_BODY()
 	
 public:
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	int32 ReadIntValue(bool& isSuccess);
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
+	int32 GetIntValue(bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	float ReadFloatValue(bool& isSuccess);
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
+	float GetFloatValue(bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	FString ReadStringValue(bool& isSuccess);
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
+	FString GetStringValue(bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	bool ReadBoolValue(bool& isSuccess);
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
+	bool GetBoolValue(bool& isSuccess);
 
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "EasyXMLParser|Object")

@@ -3,7 +3,7 @@
 #include "EasyXMLObject.h"
 #include "Utils/CustomXMLParser.h"
 
-int32 UEasyXMLObject::ReadIntValue(bool& isSuccess)
+int32 UEasyXMLObject::GetIntValue(bool& isSuccess)
 {
 	isSuccess = false;
 
@@ -20,7 +20,7 @@ int32 UEasyXMLObject::ReadIntValue(bool& isSuccess)
 	return 0;
 }
 
-float UEasyXMLObject::ReadFloatValue(bool& isSuccess)
+float UEasyXMLObject::GetFloatValue(bool& isSuccess)
 {
 	isSuccess = false;
 	if (Value.IsEmpty()) return 0;
@@ -29,12 +29,12 @@ float UEasyXMLObject::ReadFloatValue(bool& isSuccess)
 	return isSuccess ? FCString::Atof(*Value) : 0;
 }
 
-FString UEasyXMLObject::ReadStringValue(bool& isSuccess)
+FString UEasyXMLObject::GetStringValue(bool& isSuccess)
 {
 	return Value;
 }
 
-bool UEasyXMLObject::ReadBoolValue(bool& isSuccess)
+bool UEasyXMLObject::GetBoolValue(bool& isSuccess)
 {
 	isSuccess = false;
 	if (Value.IsEmpty()) return false;

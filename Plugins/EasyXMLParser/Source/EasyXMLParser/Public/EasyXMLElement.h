@@ -15,19 +15,19 @@ public:
 	static UEasyXMLElement* CreateElement(UEasyXMLObject* ParentObject, FString Tag, FString Content, int32 LineNumber);
 
 public:
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
 	int32 ReadInt(const FString& AccessString, bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
 	float ReadFloat(const FString& AccessString, bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
 	FString ReadString(const FString& AccessString, bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
 	bool ReadBool(const FString& AccessString, bool& isSuccess);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
 	UEasyXMLElement* ReadElement(const FString& AccessString, bool& isSuccess);
 
 

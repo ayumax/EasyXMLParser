@@ -22,7 +22,7 @@ int32 UEasyXMLElement::ReadInt(const FString& AccessString, bool& isSuccess)
 
 	if (!foundElement) return 0;
 
-	return foundElement->ReadIntValue(isSuccess);
+	return foundElement->GetIntValue(isSuccess);
 }
 
 float UEasyXMLElement::ReadFloat(const FString& AccessString, bool& isSuccess)
@@ -31,7 +31,7 @@ float UEasyXMLElement::ReadFloat(const FString& AccessString, bool& isSuccess)
 	isSuccess = foundElement != nullptr;
 	if (!foundElement) return 0;
 
-	return foundElement->ReadFloatValue(isSuccess);
+	return foundElement->GetFloatValue(isSuccess);
 }
 
 FString UEasyXMLElement::ReadString(const FString& AccessString, bool& isSuccess)
@@ -40,7 +40,7 @@ FString UEasyXMLElement::ReadString(const FString& AccessString, bool& isSuccess
 	isSuccess = foundElement != nullptr;
 	if (!foundElement) return TEXT("");
 
-	return foundElement->ReadStringValue(isSuccess);
+	return foundElement->GetStringValue(isSuccess);
 }
 
 bool UEasyXMLElement::ReadBool(const FString& AccessString, bool& isSuccess)
@@ -49,7 +49,7 @@ bool UEasyXMLElement::ReadBool(const FString& AccessString, bool& isSuccess)
 	isSuccess = foundElement != nullptr;
 	if (!foundElement) return 0;
 
-	return foundElement->ReadBoolValue(isSuccess);
+	return foundElement->GetBoolValue(isSuccess);
 }
 
 UEasyXMLElement* UEasyXMLElement::ReadElement(const FString& AccessString, bool& isSuccess)
