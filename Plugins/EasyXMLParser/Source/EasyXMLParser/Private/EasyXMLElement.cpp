@@ -15,78 +15,102 @@ UEasyXMLElement* UEasyXMLElement::CreateElement(UEasyXMLObject* ParentObject, FS
 }
 
 
-int32 UEasyXMLElement::ReadInt(const FString& AccessString, bool& isSuccess)
+int32 UEasyXMLElement::ReadInt(const FString& AccessString, int32 DefaultValue)
 {
 	auto foundElement = ReadEasyXMLObject(AccessString);
-	isSuccess = foundElement != nullptr;
+	if (!foundElement) return DefaultValue;
 
-	if (!foundElement) return 0;
-
-	return foundElement->GetIntValue(isSuccess);
+	return foundElement->GetIntValue(DefaultValue);
 }
 
-float UEasyXMLElement::ReadFloat(const FString& AccessString, bool& isSuccess)
+
+float UEasyXMLElement::ReadFloat(const FString& AccessString, float DefaultValue)
 {
 	auto foundElement = ReadEasyXMLObject(AccessString);
-	isSuccess = foundElement != nullptr;
-	if (!foundElement) return 0;
+	if (!foundElement) return DefaultValue;
 
-	return foundElement->GetFloatValue(isSuccess);
+	return foundElement->GetFloatValue(DefaultValue);
 }
 
-FString UEasyXMLElement::ReadString(const FString& AccessString, bool& isSuccess)
+FString UEasyXMLElement::ReadString(const FString& AccessString, const FString& DefaultValue)
 {
 	auto foundElement = ReadEasyXMLObject(AccessString);
-	isSuccess = foundElement != nullptr;
-	if (!foundElement) return TEXT("");
+	if (!foundElement) return DefaultValue;
 
-	return foundElement->GetStringValue(isSuccess);
+	return foundElement->GetStringValue(DefaultValue);
 }
 
-bool UEasyXMLElement::ReadBool(const FString& AccessString, bool& isSuccess)
+bool UEasyXMLElement::ReadBool(const FString& AccessString, bool DefaultValue)
 {
 	auto foundElement = ReadEasyXMLObject(AccessString);
-	isSuccess = foundElement != nullptr;
-	if (!foundElement) return 0;
+	if (!foundElement) return DefaultValue;
 
-	return foundElement->GetBoolValue(isSuccess);
+	return foundElement->GetBoolValue(DefaultValue);
 }
 
-UEasyXMLElement* UEasyXMLElement::ReadElement(const FString& AccessString, bool& isSuccess)
+UEasyXMLElement* UEasyXMLElement::ReadElement(const FString& AccessString, EEasyXMLParserFound& Result)
 {
+	auto filterArray = ReadElements(AccessString, Result);
+
+	return filterArray.Num() > 0 ? filterArray[0] : nullptr;
+}
+
+TArray<UEasyXMLElement*> UEasyXMLElement::ReadElements(const FString& AccessString, EEasyXMLParserFound& Result)
+{
+	TArray<UEasyXMLElement*> foundElements;
+
 	TArray<FString> Accessers;
 	AccessString.ParseIntoArray(Accessers, TEXT("."), true);
 
-	isSuccess = false;
+	Result = EEasyXMLParserFound::NotFound;
 
 	auto parentNode = this;
 
-	for (auto accesseName : Accessers)
+	for (int i = 0; i < Accessers.Num(); ++i)
 	{
-		if (accesseName.IsEmpty()) return nullptr;
+		auto accesseName = Accessers[i];
+
+		if (accesseName.IsEmpty()) return foundElements;
 
 		if (accesseName[0] == TEXT('@'))
 		{
-			return nullptr;
+			return foundElements;
 		}
 
 		FString elementName;
 		int32 arrayIndex = 0;
-		IsAccessAsArray(accesseName, elementName, arrayIndex);
+		bool IsArrayAccess = IsAccessAsArray(accesseName, elementName, arrayIndex);
 
 		auto filterNodes = parentNode->GetElementsByTagName(elementName);
-		if (filterNodes.Num() > arrayIndex)
+
+		if (i == (Accessers.Num() - 1))
 		{
-			parentNode = filterNodes[arrayIndex];
+			if (IsArrayAccess)
+			{
+				if (filterNodes.Num() > arrayIndex)
+				{
+					foundElements.Emplace(filterNodes[arrayIndex]);
+				}	
+			}
+			else
+			{
+				foundElements = filterNodes;
+			}
 		}
+		else
+		{
+			if (filterNodes.Num() > arrayIndex)
+			{
+				parentNode = filterNodes[arrayIndex];
+			}
 
-		if (!parentNode) return nullptr;
-
+			if (!parentNode) return foundElements;
+		}
 	}
 
-	isSuccess = true;
+	Result = EEasyXMLParserFound::Found;
 
-	return parentNode;
+	return foundElements;
 }
 
 UEasyXMLObject* UEasyXMLElement::ReadEasyXMLObject(const FString& AccessString)
@@ -102,7 +126,8 @@ UEasyXMLObject* UEasyXMLElement::ReadEasyXMLObject(const FString& AccessString)
 
 		if (accesseName[0] == TEXT('@'))
 		{
-			return parentNode->GetAttribute(accesseName.Mid(1));
+			EEasyXMLParserFound retFound;
+			return parentNode->GetAttribute(accesseName.Mid(1), retFound);
 		}
 		
 		FString elementName;
@@ -114,9 +139,10 @@ UEasyXMLObject* UEasyXMLElement::ReadEasyXMLObject(const FString& AccessString)
 		{
 			parentNode = filterNodes[arrayIndex];
 		}
-
-		if (!parentNode) return nullptr;
-		
+		else
+		{
+			return nullptr;
+		}	
 	}
 
 	return parentNode;
@@ -133,13 +159,15 @@ TArray<UEasyXMLElement*> UEasyXMLElement::GetElementsByTagName(const FString& Ta
 	return foundElements;
 }
 
-UEasyXMLAttribute* UEasyXMLElement::GetAttribute(const FString& AtrributeName)
+UEasyXMLAttribute* UEasyXMLElement::GetAttribute(const FString& AtrributeName, EEasyXMLParserFound& Result)
 {
 	if (Attributes.Contains(AtrributeName))
 	{
+		Result = EEasyXMLParserFound::Found;
 		return Attributes[AtrributeName];
 	}
 
+	Result = EEasyXMLParserFound::NotFound;
 	return nullptr;
 }
 

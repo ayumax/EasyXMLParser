@@ -21,18 +21,17 @@ bool FNodeAccessTest::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 		
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc", isSuccess), "123");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[0]", isSuccess), "123");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[1]", isSuccess), "");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[2]", isSuccess), "40");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[3]", isSuccess), "ZZZZ");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.bbb", isSuccess), "bbbChild");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[0].@attr1", isSuccess), "10");
-		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[0].@attr2", isSuccess), "false");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc"), "123");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[0]"), "123");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[1]"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[2]"), "40");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[3]"), "ZZZZ");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.bbb"), "bbbChild");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[0].@attr1"), "10");
+		TestEqual(TEXT("success read"), rootNode->ReadString("root.abc[0].@attr2"), "false");
 	}
 
 	return true;
@@ -45,77 +44,191 @@ bool FNodeAccessTest2::RunTest(const FString& Parameters)
 {
 	{
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromFile("PurchaseOrder.xml", false, result, errorMessage);
 
-		TestEqual(TEXT("success read"), rootNode->ReadInt("PurchaseOrder.@PurchaseOrderNumber", isSuccess), 99503);
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.@OrderDate", isSuccess), "1999-10-20");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].@Type", isSuccess), "Shipping");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Name", isSuccess), "Ellen Adams");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Street", isSuccess), "123 Maple Street");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].City", isSuccess), "Mill Valley");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].State", isSuccess), "CA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Zip", isSuccess), "10999");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Country", isSuccess), "USA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].@Type", isSuccess), "Billing");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Name", isSuccess), "Tai Yee");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Street", isSuccess), "8 Oak Avenue");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].City", isSuccess), "Old Town");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].State", isSuccess), "PA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Zip", isSuccess), "95819");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Country", isSuccess), "USA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.DeliveryNotes", isSuccess), "Please leave packages in shed by driveway.");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].@PartNumber", isSuccess), "872-AA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].ProductName", isSuccess), "Lawnmower");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].Quantity", isSuccess), "1");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].USPrice", isSuccess), "148.95");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].Comment", isSuccess), "Confirm this is electric");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].@PartNumber", isSuccess), "926-AA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].ProductName", isSuccess), "Baby Monitor");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].Quantity", isSuccess), "2");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].USPrice", isSuccess), "39.98");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].ShipDate", isSuccess), "1999-05-21");
+		TestEqual(TEXT("success read"), rootNode->ReadInt("PurchaseOrder.@PurchaseOrderNumber"), 99503);
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.@OrderDate"), "1999-10-20");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].@Type"), "Shipping");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Name"), "Ellen Adams");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Street"), "123 Maple Street");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].City"), "Mill Valley");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].State"), "CA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Zip"), "10999");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Country"), "USA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].@Type"), "Billing");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Name"), "Tai Yee");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Street"), "8 Oak Avenue");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].City"), "Old Town");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].State"), "PA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Zip"), "95819");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Country"), "USA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.DeliveryNotes"), "Please leave packages in shed by driveway.");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].@PartNumber"), "872-AA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].ProductName"), "Lawnmower");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].Quantity"), "1");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].USPrice"), "148.95");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].Comment"), "Confirm this is electric");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].@PartNumber"), "926-AA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].ProductName"), "Baby Monitor");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].Quantity"), "2");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].USPrice"), "39.98");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[1].ShipDate"), "1999-05-21");
 	}
 
 	{
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromFile("PurchaseOrder.xml", false, result, errorMessage);
 
-		auto Address0Node = rootNode->ReadElement("PurchaseOrder.Address[0]", isSuccess);
-		auto Address1Node = rootNode->ReadElement("PurchaseOrder.Address[1]", isSuccess);
-		auto Item0Node = rootNode->ReadElement("PurchaseOrder.Items.Item[0]", isSuccess);
-		auto Item1Node = rootNode->ReadElement("PurchaseOrder.Items.Item[1]", isSuccess);
+		EEasyXMLParserFound retFound;
+		auto Address0Node = rootNode->ReadElement("PurchaseOrder.Address[0]", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+		auto Address1Node = rootNode->ReadElement("PurchaseOrder.Address[1]", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+		auto Item0Node = rootNode->ReadElement("PurchaseOrder.Items.Item[0]", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+		auto Item1Node = rootNode->ReadElement("PurchaseOrder.Items.Item[1]", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
 
-		TestEqual(TEXT("success read"), rootNode->ReadInt("PurchaseOrder.@PurchaseOrderNumber", isSuccess), 99503);
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.@OrderDate", isSuccess), "1999-10-20");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("@Type", isSuccess), "Shipping");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("Name", isSuccess), "Ellen Adams");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("Street", isSuccess), "123 Maple Street");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("City", isSuccess), "Mill Valley");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("State", isSuccess), "CA");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("Zip", isSuccess), "10999");
-		TestEqual(TEXT("success read"), Address0Node->ReadString("Country", isSuccess), "USA");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("@Type", isSuccess), "Billing");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("Name", isSuccess), "Tai Yee");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("Street", isSuccess), "8 Oak Avenue");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("City", isSuccess), "Old Town");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("State", isSuccess), "PA");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("Zip", isSuccess), "95819");
-		TestEqual(TEXT("success read"), Address1Node->ReadString("Country", isSuccess), "USA");
-		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.DeliveryNotes", isSuccess), "Please leave packages in shed by driveway.");
-		TestEqual(TEXT("success read"), Item0Node->ReadString("@PartNumber", isSuccess), "872-AA");
-		TestEqual(TEXT("success read"), Item0Node->ReadString("ProductName", isSuccess), "Lawnmower");
-		TestEqual(TEXT("success read"), Item0Node->ReadString("Quantity", isSuccess), "1");
-		TestEqual(TEXT("success read"), Item0Node->ReadString("USPrice", isSuccess), "148.95");
-		TestEqual(TEXT("success read"), Item0Node->ReadString("Comment", isSuccess), "Confirm this is electric");
-		TestEqual(TEXT("success read"), Item1Node->ReadString("@PartNumber", isSuccess), "926-AA");
-		TestEqual(TEXT("success read"), Item1Node->ReadString("ProductName", isSuccess), "Baby Monitor");
-		TestEqual(TEXT("success read"), Item1Node->ReadString("Quantity", isSuccess), "2");
-		TestEqual(TEXT("success read"), Item1Node->ReadString("USPrice", isSuccess), "39.98");
-		TestEqual(TEXT("success read"), Item1Node->ReadString("ShipDate", isSuccess), "1999-05-21");
+		TestEqual(TEXT("success read"), rootNode->ReadInt("PurchaseOrder.@PurchaseOrderNumber"), 99503);
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.@OrderDate"), "1999-10-20");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("@Type"), "Shipping");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("Name"), "Ellen Adams");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("Street"), "123 Maple Street");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("City"), "Mill Valley");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("State"), "CA");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("Zip"), "10999");
+		TestEqual(TEXT("success read"), Address0Node->ReadString("Country"), "USA");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("@Type"), "Billing");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("Name"), "Tai Yee");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("Street"), "8 Oak Avenue");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("City"), "Old Town");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("State"), "PA");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("Zip"), "95819");
+		TestEqual(TEXT("success read"), Address1Node->ReadString("Country"), "USA");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.DeliveryNotes"), "Please leave packages in shed by driveway.");
+		TestEqual(TEXT("success read"), Item0Node->ReadString("@PartNumber"), "872-AA");
+		TestEqual(TEXT("success read"), Item0Node->ReadString("ProductName"), "Lawnmower");
+		TestEqual(TEXT("success read"), Item0Node->ReadString("Quantity"), "1");
+		TestEqual(TEXT("success read"), Item0Node->ReadString("USPrice"), "148.95");
+		TestEqual(TEXT("success read"), Item0Node->ReadString("Comment"), "Confirm this is electric");
+		TestEqual(TEXT("success read"), Item1Node->ReadString("@PartNumber"), "926-AA");
+		TestEqual(TEXT("success read"), Item1Node->ReadString("ProductName"), "Baby Monitor");
+		TestEqual(TEXT("success read"), Item1Node->ReadString("Quantity"), "2");
+		TestEqual(TEXT("success read"), Item1Node->ReadString("USPrice"), "39.98");
+		TestEqual(TEXT("success read"), Item1Node->ReadString("ShipDate"), "1999-05-21");
+	}
+
+
+	{
+		EEasyXMLParserErrorCode result;
+		FString errorMessage;
+		auto rootNode = UEasyXMLParseManager::LoadFromFile("PurchaseOrder.xml", false, result, errorMessage);
+
+		EEasyXMLParserFound retFound;
+		auto AddressNodes = rootNode->ReadElements("PurchaseOrder.Address", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+		auto ItemNodes = rootNode->ReadElements("PurchaseOrder.Items.Item", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("@Type"), "Shipping");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Name"), "Ellen Adams");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Street"), "123 Maple Street");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("City"), "Mill Valley");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("State"), "CA");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Zip"), "10999");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Country"), "USA");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("@Type"), "Billing");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Name"), "Tai Yee");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Street"), "8 Oak Avenue");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("City"), "Old Town");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("State"), "PA");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Zip"), "95819");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Country"), "USA");
+
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("@PartNumber"), "872-AA");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("ProductName"), "Lawnmower");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("Quantity"), "1");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("USPrice"), "148.95");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("Comment"), "Confirm this is electric");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("@PartNumber"), "926-AA");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("ProductName"), "Baby Monitor");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("Quantity"), "2");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("USPrice"), "39.98");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("ShipDate"), "1999-05-21");
+	}
+
+	{
+		EEasyXMLParserErrorCode result;
+		FString errorMessage;
+		auto rootNode = UEasyXMLParseManager::LoadFromFile("PurchaseOrder.xml", false, result, errorMessage);
+
+		TestEqual(TEXT("success read"), rootNode->ReadInt("PurchaseOrder.PurchaseOrderNumber"), 0);
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.OrderDate"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Type"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].Name-"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrde-r.Address[0].Street"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address-[0].City"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0].State-"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder-.Address[0].Zip"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[0]-.Country"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1]-.@Type"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder-.Address[1].Name"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Stree-t"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1]-.City"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder-.Address[1].State"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1].Zip-"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Address[1]-.Country"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder-.DeliveryNotes"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0].@PartNumber-"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[0]-.ProductName"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items-.Item[0].Quantity"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[4].USPrice"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[-1].Comment"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[8].@PartNumber"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[99].ProductName"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[7].Quantity"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[555].USPrice"), "");
+		TestEqual(TEXT("success read"), rootNode->ReadString("PurchaseOrder.Items.Item[9999].ShipDate"), "");
+	}
+
+	{
+		EEasyXMLParserErrorCode result;
+		FString errorMessage;
+		auto rootNode = UEasyXMLParseManager::LoadFromFile("PurchaseOrder.xml", false, result, errorMessage);
+
+		EEasyXMLParserFound retFound;
+		auto AddressNodes = rootNode->ReadElements("PurchaseOrder.Address", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+		auto ItemNodes = rootNode->ReadElements("PurchaseOrder.Items.Item", retFound);
+		TestTrue(TEXT("success read"), retFound == EEasyXMLParserFound::Found);
+
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("@Type-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Name-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Street-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("City-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("State-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Zip-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[0]->ReadString("Country-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("@Type-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Name-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Street-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("City-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("State-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Zip-"), "");
+		TestEqual(TEXT("success read"), AddressNodes[1]->ReadString("Country-"), "");
+
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("@PartNumber-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("ProductName-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("Quantity-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("USPrice-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[0]->ReadString("Comment-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("@PartNumber-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("ProductName-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("Quantity-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("USPrice-"), "");
+		TestEqual(TEXT("success read"), ItemNodes[1]->ReadString("ShipDate-"), "");
 	}
 
 	return true;

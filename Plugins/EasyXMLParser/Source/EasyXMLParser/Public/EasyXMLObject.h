@@ -13,16 +13,16 @@ class EASYXMLPARSER_API UEasyXMLObject : public UObject
 	
 public:
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
-	int32 GetIntValue(bool& isSuccess);
+	int32 GetIntValue(int32 DefaultValue = 0);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
-	float GetFloatValue(bool& isSuccess);
+	float GetFloatValue(float DefaultValue = 0.0f);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
-	FString GetStringValue(bool& isSuccess);
+	FString GetStringValue(FString DefaultValue = TEXT(""));
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|GetValue")
-	bool GetBoolValue(bool& isSuccess);
+	bool GetBoolValue(bool DefaultValue = false);
 
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "EasyXMLParser|Object")

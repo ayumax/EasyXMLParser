@@ -3,52 +3,47 @@
 #include "EasyXMLObject.h"
 #include "Utils/CustomXMLParser.h"
 
-int32 UEasyXMLObject::GetIntValue(bool& isSuccess)
+int32 UEasyXMLObject::GetIntValue(int32 DefaultValue)
 {
-	isSuccess = false;
-
-	if (Value.IsEmpty()) return 0;
+	if (Value.IsEmpty()) return DefaultValue;
 
 	int32 _index = 0;
 
 	if (Value.IsNumeric() && !Value.FindChar(TEXT('.'), _index))
 	{
-		isSuccess = true;
 		return FCString::Atoi(*Value);
 	}
 		
-	return 0;
+	return DefaultValue;
 }
 
-float UEasyXMLObject::GetFloatValue(bool& isSuccess)
+float UEasyXMLObject::GetFloatValue(float DefaultValue)
 {
-	isSuccess = false;
-	if (Value.IsEmpty()) return 0;
+	if (Value.IsEmpty()) return DefaultValue;
 
-	isSuccess = Value.IsNumeric();
-	return isSuccess ? FCString::Atof(*Value) : 0;
+	auto isSuccess = Value.IsNumeric();
+	return isSuccess ? FCString::Atof(*Value) : DefaultValue;
 }
 
-FString UEasyXMLObject::GetStringValue(bool& isSuccess)
+FString UEasyXMLObject::GetStringValue(FString DefaultValue)
 {
+	if (Value.IsEmpty()) return DefaultValue;
+
 	return Value;
 }
 
-bool UEasyXMLObject::GetBoolValue(bool& isSuccess)
+bool UEasyXMLObject::GetBoolValue(bool DefaultValue)
 {
-	isSuccess = false;
-	if (Value.IsEmpty()) return false;
+	if (Value.IsEmpty()) return DefaultValue;
 
 	if (Value.Equals(TEXT("true"), ESearchCase::IgnoreCase))
 	{
-		isSuccess = true;
 		return true;
 	}
 	else if (Value.Equals(TEXT("false"), ESearchCase::IgnoreCase))
 	{
-		isSuccess = true;
 		return false;
 	}
 
-	return false;
+	return DefaultValue;
 }

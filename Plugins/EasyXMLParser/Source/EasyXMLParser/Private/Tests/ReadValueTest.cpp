@@ -16,12 +16,10 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 		
-		TestEqual(TEXT("success read int"), rootNode->ReadInt("root.abc", isSuccess), 123);
-		TestEqual(TEXT("success read int"), isSuccess, true);
+		TestEqual(TEXT("success read int"), rootNode->ReadInt("root.abc", 0), 123);
 	}
 
 	// parse success
@@ -33,12 +31,10 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
-		TestEqual(TEXT("success read int"), rootNode->ReadInt("root.abc", isSuccess), -123);
-		TestEqual(TEXT("success read int"), isSuccess, true);
+		TestEqual(TEXT("success read int"), rootNode->ReadInt("root.abc", 0), -123);
 	}
 
 	// parse success
@@ -50,13 +46,11 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read int"), rootNode->ReadInt("root.abc", isSuccess), 123456789);
-		TestEqual(TEXT("success read int"), isSuccess, true);
+		TestEqual(TEXT("success read int"), rootNode->ReadInt("root.abc", 0), 123456789);
 	}
 
 
@@ -69,13 +63,11 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read int(string)"), rootNode->ReadInt("root.abc", isSuccess), 0);
-		TestEqual(TEXT("ng read int(string)"), isSuccess, false);
+		TestEqual(TEXT("ng read int(string)"), rootNode->ReadInt("root.abc", 0), 0);
 	}
 
 	// parse ng(float)
@@ -87,13 +79,11 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read int(float)"), rootNode->ReadInt("root.abc", isSuccess), 0);
-		TestEqual(TEXT("ng read int(float)"), isSuccess, false);
+		TestEqual(TEXT("ng read int(float)"), rootNode->ReadInt("root.abc", 0), 0);
 	}
 
 	// parse ng(xml)
@@ -107,13 +97,11 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read int(xml)"), rootNode->ReadInt("root.abc", isSuccess), 0);
-		TestEqual(TEXT("ng read int(xml)"), isSuccess, false);
+		TestEqual(TEXT("ng read int(xml)"), rootNode->ReadInt("root.abc", 0), 0);
 	}
 	
 
@@ -134,13 +122,11 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", isSuccess), 1.23f);
-		TestEqual(TEXT("success read float"), isSuccess, true);
+		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", 0), 1.23f);
 	}
 
 	// parse success
@@ -152,13 +138,11 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", isSuccess), -1.23);
-		TestEqual(TEXT("success read float"), isSuccess, true);
+		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", 0), -1.23);
 	}
 
 	// parse success
@@ -170,13 +154,11 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", isSuccess), 123.456789);
-		TestEqual(TEXT("success read float"), isSuccess, true);
+		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", 0), 123.456789);
 	}
 
 	// parse success
@@ -188,13 +170,11 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", isSuccess), 123.0f);
-		TestEqual(TEXT("success read float"), isSuccess, true);
+		TestEqual(TEXT("success read float"), rootNode->ReadFloat("root.abc", 0), 123.0f);
 	}
 
 
@@ -207,13 +187,11 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read float(string)"), rootNode->ReadFloat("root.abc", isSuccess), 0.0f);
-		TestEqual(TEXT("ng read float(string)"), isSuccess, false);
+		TestEqual(TEXT("ng read float(string)"), rootNode->ReadFloat("root.abc", 0), 0.0f);
 	}
 
 	// parse ng(xml)
@@ -227,13 +205,11 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read float(xml)"), rootNode->ReadFloat("root.abc", isSuccess), 0.0f);
-		TestEqual(TEXT("ng read float(xml)"), isSuccess, false);
+		TestEqual(TEXT("ng read float(xml)"), rootNode->ReadFloat("root.abc", 0), 0.0f);
 	}
 
 	return true;
@@ -253,13 +229,11 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", isSuccess), true);
-		TestEqual(TEXT("success read bool"), isSuccess, true);
+		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", false), true);
 	}
 
 	// parse success
@@ -271,13 +245,11 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", isSuccess), true);
-		TestEqual(TEXT("success read bool"), isSuccess, true);
+		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", false), true);
 	}
 	
 	// parse success
@@ -289,13 +261,11 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", isSuccess), false);
-		TestEqual(TEXT("success read bool"), isSuccess, true);
+		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", true), false);
 	}
 
 	// parse success
@@ -307,13 +277,11 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", isSuccess), false);
-		TestEqual(TEXT("success read bool"), isSuccess, true);
+		TestEqual(TEXT("success read bool"), rootNode->ReadBool("root.abc", true), false);
 	}
 
 
@@ -326,13 +294,11 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read bool(string)"), rootNode->ReadBool("root.abc", isSuccess), false);
-		TestEqual(TEXT("ng read bool(string)"), isSuccess, false);
+		TestEqual(TEXT("ng read bool(string)"), rootNode->ReadBool("root.abc", false), false);
 	}
 
 	// parse ng(xml)
@@ -346,13 +312,11 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("ng read bool(xml)"), rootNode->ReadBool("root.abc", isSuccess), false);
-		TestEqual(TEXT("ng read bool(xml)"), isSuccess, false);
+		TestEqual(TEXT("ng read bool(xml)"), rootNode->ReadBool("root.abc", false), false);
 	}
 
 	return true;
@@ -372,13 +336,11 @@ bool FReadValueTest_String::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", isSuccess), TEXT("text"));
-		TestEqual(TEXT("success read string"), isSuccess, true);
+		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", TEXT("")), TEXT("text"));
 	}
 
 	// parse success
@@ -390,13 +352,11 @@ bool FReadValueTest_String::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", isSuccess), TEXT("123"));
-		TestEqual(TEXT("success read string"), isSuccess, true);
+		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", TEXT("")), TEXT("123"));
 	}
 
 	// parse success
@@ -408,13 +368,11 @@ bool FReadValueTest_String::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", isSuccess), TEXT("1.23"));
-		TestEqual(TEXT("success read string"), isSuccess, true);
+		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", TEXT("")), TEXT("1.23"));
 	}
 
 	// parse success
@@ -426,13 +384,11 @@ bool FReadValueTest_String::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", isSuccess), TEXT("true"));
-		TestEqual(TEXT("success read string"), isSuccess, true);
+		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", TEXT("")), TEXT("true"));
 	}
 
 	// parse success
@@ -444,13 +400,11 @@ bool FReadValueTest_String::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", isSuccess), TEXT("false"));
-		TestEqual(TEXT("success read string"), isSuccess, true);
+		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", TEXT("")), TEXT("false"));
 	}
 
 	// parse ng(xml)
@@ -464,12 +418,10 @@ bool FReadValueTest_String::RunTest(const FString& Parameters)
 							TEXT("</root>");
 
 		EEasyXMLParserErrorCode result;
-		bool isSuccess;
 		FString errorMessage;
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
-		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", isSuccess), TEXT(""));
-		TestEqual(TEXT("success read string"), isSuccess, true);
+		TestEqual(TEXT("success read string"), rootNode->ReadString("root.abc", TEXT("")), TEXT(""));
 	}
 
 	return true;

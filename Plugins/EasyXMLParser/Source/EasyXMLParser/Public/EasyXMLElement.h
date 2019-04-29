@@ -2,6 +2,7 @@
 #pragma once
 
 #include "EasyXMLObject.h"
+#include "EasyXMLParserEnums.h"
 #include "EasyXMLElement.generated.h"
 
 class UEasyXMLAttribute;
@@ -16,32 +17,30 @@ public:
 
 public:
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
-	int32 ReadInt(const FString& AccessString, bool& isSuccess);
+	int32 ReadInt(const FString& AccessString, int32 DefaultValue = 0);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
-	float ReadFloat(const FString& AccessString, bool& isSuccess);
+	float ReadFloat(const FString& AccessString, float DefaultValue = 0.0f);
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
-	FString ReadString(const FString& AccessString, bool& isSuccess);
+	FString ReadString(const FString& AccessString, const FString& DefaultValue = TEXT(""));
 
 	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
-	bool ReadBool(const FString& AccessString, bool& isSuccess);
+	bool ReadBool(const FString& AccessString, bool DefaultValue = false);
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|ReadValue")
-	UEasyXMLElement* ReadElement(const FString& AccessString, bool& isSuccess);
+	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser|ReadValue", meta = (ExpandEnumAsExecs = "Result"))
+	UEasyXMLElement* ReadElement(const FString& AccessString, EEasyXMLParserFound& Result);
+
+	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser|ReadValue", meta = (ExpandEnumAsExecs = "Result"))
+	TArray<UEasyXMLElement*> ReadElements(const FString& AccessString, EEasyXMLParserFound& Result);
+
+	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object", meta = (ExpandEnumAsExecs = "Result"))
+	UEasyXMLAttribute* GetAttribute(const FString& AtrributeName, EEasyXMLParserFound& Result);
 
 
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
+public:
 	UEasyXMLObject* ReadEasyXMLObject(const FString& AccessString);
-
-	UFUNCTION(BlueprintCallable, Category = "EasyXMLParser|Object")
 	TArray<UEasyXMLElement*> GetElementsByTagName(const FString& TagName);
-
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
-	UEasyXMLAttribute* GetAttribute(const FString& AtrributeName);
-
-
-	UFUNCTION(BlueprintPure, Category = "EasyXMLParser|Object")
 	bool IsContainAttributeKeys(const TArray<FString>& Keys, TArray<FString>& FoundAttributeKeys);
 
 private:

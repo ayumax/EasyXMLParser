@@ -10,3 +10,10 @@ enum class EEasyXMLParserErrorCode : uint8
 	Successed,
 	Failed
 };
+
+UENUM(BlueprintType)
+enum class EEasyXMLParserFound : uint8
+{
+	Found,
+	NotFound
+};
