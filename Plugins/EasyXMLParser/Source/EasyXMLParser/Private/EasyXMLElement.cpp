@@ -122,6 +122,7 @@ UEasyXMLObject* UEasyXMLElement::ReadEasyXMLObject(const FString& AccessString)
 
 	for (auto accesseName : Accessers)
 	{
+		if (!parentNode) return nullptr;
 		if (accesseName.IsEmpty()) return nullptr;
 
 		if (accesseName[0] == TEXT('@'))
