@@ -8,13 +8,12 @@
 CustomXMLParser::CustomXMLParser()
 {
 }
-	
+
 CustomXMLParser::~CustomXMLParser()
 {
-
 }
 
-UEasyXMLElement* CustomXMLParser::Parse(FString xmlString, FString& ErrorMessage)
+UEasyXMLElement *CustomXMLParser::Parse(FString xmlString, FString &ErrorMessage)
 {
 	RootElement = NewObject<UEasyXMLElement>();
 	XMLObjectStack.Emplace(RootElement);
@@ -31,17 +30,17 @@ UEasyXMLElement* CustomXMLParser::Parse(FString xmlString, FString& ErrorMessage
 	return RootElement;
 }
 
-bool CustomXMLParser::ProcessXmlDeclaration(const TCHAR* ElementData, int32 XmlFileLineNumber)
+bool CustomXMLParser::ProcessXmlDeclaration(const TCHAR *ElementData, int32 XmlFileLineNumber)
 {
 	return true;
 }
 
-bool CustomXMLParser::ProcessElement(const TCHAR* ElementName, const TCHAR* ElementData, int32 XmlFileLineNumber)
+bool CustomXMLParser::ProcessElement(const TCHAR *ElementName, const TCHAR *ElementData, int32 XmlFileLineNumber)
 {
 	auto currentNode = XMLObjectStack.Num() > 0 ? XMLObjectStack.Last() : nullptr;
 
 	auto newNode = UEasyXMLElement::CreateElement(currentNode, ElementName, ElementData, XmlFileLineNumber);
-	
+
 	if (currentNode)
 	{
 		currentNode->Children.Emplace(newNode);
@@ -52,11 +51,11 @@ bool CustomXMLParser::ProcessElement(const TCHAR* ElementName, const TCHAR* Elem
 	return true;
 }
 
-bool CustomXMLParser::ProcessAttribute(const TCHAR* AttributeName, const TCHAR* AttributeValue)
+bool CustomXMLParser::ProcessAttribute(const TCHAR *AttributeName, const TCHAR *AttributeValue)
 {
 	auto currentNode = XMLObjectStack.Last();
 
-	if (!currentNode) return nullptr;
+	if (!currentNode) return false;
 	if (currentNode->Attributes.Contains(AttributeName)) return false;
 
 	auto newAttribute = UEasyXMLAttribute::CreateAttribute(currentNode, AttributeName, AttributeValue);
@@ -65,7 +64,7 @@ bool CustomXMLParser::ProcessAttribute(const TCHAR* AttributeName, const TCHAR* 
 	return true;
 }
 
-bool CustomXMLParser::ProcessClose(const TCHAR* Element)
+bool CustomXMLParser::ProcessClose(const TCHAR *Element)
 {
 	if (XMLObjectStack.Num() == 0) return false;
 
@@ -74,7 +73,7 @@ bool CustomXMLParser::ProcessClose(const TCHAR* Element)
 	return true;
 }
 
-bool CustomXMLParser::ProcessComment(const TCHAR* Comment)
+bool CustomXMLParser::ProcessComment(const TCHAR *Comment)
 {
 	if (XMLObjectStack.Num() == 0) return false;
 

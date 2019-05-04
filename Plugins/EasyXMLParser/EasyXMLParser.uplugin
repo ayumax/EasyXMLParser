@@ -17,7 +17,14 @@
     {
       "Name": "EasyXMLParser",
       "Type": "Runtime",
-      "LoadingPhase": "Default"
+      "LoadingPhase": "Default",
+      "WhitelistPlatforms": [
+        "Win64",
+        "Win32",
+        "Android",
+        "HTML5",
+        "Linux"
+      ]
     }
   ]
 }
