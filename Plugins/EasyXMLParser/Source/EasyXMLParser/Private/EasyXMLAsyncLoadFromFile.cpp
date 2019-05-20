@@ -1,3 +1,4 @@
+// Copyright 2019 ayumax. All Rights Reserved.
 #include "EasyXMLAsyncLoadFromFile.h"
 #include "Engine/World.h"
 #include "TimerManager.h"
