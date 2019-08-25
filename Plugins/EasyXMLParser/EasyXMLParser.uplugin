@@ -1,7 +1,7 @@
 {
   "FileVersion": 3,
   "Version": 1,
-  "VersionName": "1.0.0",
+  "VersionName": "1.0.1",
   "FriendlyName": "EasyXMLParser",
   "Description": "Parse xml easily",
   "Category": "Programming",
@@ -19,8 +19,11 @@
       "Type": "Runtime",
       "LoadingPhase": "Default",
       "WhitelistPlatforms": [
+        "Android",
         "Win64",
-        "Win32"
+        "Win32",
+        "Mac",
+        "IOS"
       ]
     }
   ]
