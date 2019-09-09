@@ -142,7 +142,7 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read float"), rootNode->ReadFloat(TEXT("root.abc"), 0), -1.23);
+		TestEqual(TEXT("success read float"), rootNode->ReadFloat(TEXT("root.abc"), 0), -1.23f);
 	}
 
 	// parse success
@@ -158,7 +158,7 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 		auto rootNode = UEasyXMLParseManager::LoadFromString(xmlString, result, errorMessage);
 
 
-		TestEqual(TEXT("success read float"), rootNode->ReadFloat(TEXT("root.abc"), 0), 123.456789);
+		TestEqual(TEXT("success read float"), rootNode->ReadFloat(TEXT("root.abc"), 0), 123.456789f);
 	}
 
 	// parse success
