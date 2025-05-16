@@ -2,7 +2,7 @@
 #include "Misc/AutomationTest.h"
 #include "EasyXMLParseManager.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeAccessTest, "EasyXMLParser.NodeAccessTest", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeAccessTest, "EasyXMLParser.NodeAccessTest", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
 
 bool FNodeAccessTest::RunTest(const FString& Parameters)
 {
@@ -38,7 +38,7 @@ bool FNodeAccessTest::RunTest(const FString& Parameters)
 }
 
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeAccessTest2, "EasyXMLParser.NodeAccessTest2", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FNodeAccessTest2, "EasyXMLParser.NodeAccessTest2", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
 
 bool FNodeAccessTest2::RunTest(const FString& Parameters)
 {

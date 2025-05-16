@@ -75,3 +75,14 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+.vsconfig
+.vscode
+
+*.*~
+.idea
+
+*.DotSEttings.user
+
+Froola/results/*
+FRoola/packages/*

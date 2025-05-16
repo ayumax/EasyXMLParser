@@ -2,7 +2,7 @@
 #include "Misc/AutomationTest.h"
 #include "EasyXMLParseManager.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_Int, "EasyXMLParser.ReadValueTest.Int", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_Int, "EasyXMLParser.ReadValueTest.Int", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
 
 bool FReadValueTest_Int::RunTest(const FString& Parameters)
 {
@@ -109,7 +109,7 @@ bool FReadValueTest_Int::RunTest(const FString& Parameters)
 }
 
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_Float, "EasyXMLParser.ReadValueTest.Float", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_Float, "EasyXMLParser.ReadValueTest.Float", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
 
 bool FReadValueTest_Float::RunTest(const FString& Parameters)
 {
@@ -216,7 +216,7 @@ bool FReadValueTest_Float::RunTest(const FString& Parameters)
 }
 
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_Bool, "EasyXMLParser.ReadValueTest.Bool", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_Bool, "EasyXMLParser.ReadValueTest.Bool", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
 
 bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 {
@@ -323,7 +323,7 @@ bool FReadValueTest_Bool::RunTest(const FString& Parameters)
 }
 
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_String, "EasyXMLParser.ReadValueTest.String", EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FReadValueTest_String, "EasyXMLParser.ReadValueTest.String", EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::SmokeFilter)
 
 bool FReadValueTest_String::RunTest(const FString& Parameters)
 {
